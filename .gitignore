@@ -7,3 +7,5 @@ build/
 *.tmp
 __pycache__/
 .env
+mern-demo/server/.env
+mern-demo/.env

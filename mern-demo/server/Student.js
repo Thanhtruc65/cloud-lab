@@ -1,24 +1,36 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
+
+// Middleware
+app.use(cors());
 app.use(express.json());
 
 // 1. Kết nối MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/studentdb')
-  .then(() => console.log('Đã kết nối MongoDB'))
-  .catch(err => console.error('Lỗi kết nối MongoDB:', err));
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/cloud_lab';
 
-// 2. Câu 35: Tạo Schema & Model Student
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('Đã kết nối MongoDB Atlas thành công!'))
+  .catch(err => console.error('Lỗi kết nối MongoDB:', err.message));
+
+// 2. Schema & Model Student (chỉ định rõ collection 'students')
 const studentSchema = new mongoose.Schema({
   studentId: { type: String, required: true, unique: true, trim: true },
   name: { type: String, required: true, trim: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true }
 }, { timestamps: true });
 
-const Student = mongoose.model('Student', studentSchema);
+const Student = mongoose.model('Student', studentSchema, 'students');
 
-// 3. Câu 36: GET /api/students
+// Câu 45: API /api/hello để kiểm tra hoạt động cơ bản
+app.get('/api/hello', (req, res) => {
+  res.status(200).json({ message: 'Hello from Docker Backend!' });
+});
+
+// Câu 46: GET /api/students - Lấy danh sách sinh viên từ MongoDB
 app.get('/api/students', async (req, res) => {
   try {
     const students = await Student.find();
@@ -28,7 +40,7 @@ app.get('/api/students', async (req, res) => {
   }
 });
 
-// 4. Câu 37: POST /api/students
+// POST /api/students - Thêm sinh viên mới
 app.post('/api/students', async (req, res) => {
   try {
     const { studentId, name, email } = req.body;
@@ -39,7 +51,7 @@ app.post('/api/students', async (req, res) => {
   }
 });
 
-// 5. Câu 38: PUT /api/students/:id
+// PUT /api/students/:id - Cập nhật sinh viên
 app.put('/api/students/:id', async (req, res) => {
   try {
     const updatedStudent = await Student.findByIdAndUpdate(
@@ -54,7 +66,7 @@ app.put('/api/students/:id', async (req, res) => {
   }
 });
 
-// 6. Câu 39: DELETE /api/students/:id
+// DELETE /api/students/:id - Xóa sinh viên
 app.delete('/api/students/:id', async (req, res) => {
   try {
     const deletedStudent = await Student.findByIdAndDelete(req.params.id);
@@ -65,5 +77,6 @@ app.delete('/api/students/:id', async (req, res) => {
   }
 });
 
+// Khởi động server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server đang chạy trên port ${PORT}`));

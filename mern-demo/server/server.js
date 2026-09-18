@@ -20,7 +20,11 @@ const studentSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const Student = mongoose.model('Student', studentSchema);
-
+// Đặt dòng này trước các app.use('/api/...', ...)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
 // API GET /api/students
 app.get('/api/students', async (req, res) => {
   try {

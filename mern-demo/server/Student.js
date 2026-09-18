@@ -24,7 +24,11 @@ const studentSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const Student = mongoose.model('Student', studentSchema, 'students');
-
+// Đặt dòng này trước các app.use('/api/...', ...)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
 // Câu 45: API /api/hello để kiểm tra hoạt động cơ bản
 app.get('/api/hello', (req, res) => {
   res.status(200).json({ message: 'Hello from Docker Backend!' });

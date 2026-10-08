@@ -108,8 +108,8 @@ function App() {
 
         {/* Tiêu đề chính */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-blue-800 tracking-tight">Hệ Thống Quản Lý Sinh Viên - Version 2.0</h1>
-          <p className="mt-3 text-lg text-gray-600">Trường Đại học Công nghệ Cloud-Lab</p>
+          <h1 className="text-4xl font-extrabold text-indigo-700 tracking-tight">Hệ Thống Quản Lý Sinh Viên - Cloud-Lab Pro</h1>
+          <p className="mt-3 text-lg text-gray-600">Thực hành DevOps & Cloud Computing</p>
         </div>
 
         {/* Bố cục 2 cột trên màn hình lớn */}

@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// API URL: dùng biến môi trường khi deploy, fallback về localhost khi dev local
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/students`;
+// API URL: dùng env var khi có, fallback về backend Render production
+const API_URL = `${import.meta.env.VITE_API_URL || 'https://mern-backend-234904.onrender.com'}/api/students`;
 
 function App() {
   const [students, setStudents] = useState([]);

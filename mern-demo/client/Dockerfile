@@ -14,6 +14,10 @@ RUN npm install -g serve
 # Câu 55: Sao chép toàn bộ source code React vào Container
 COPY . .
 
+# Nhận biến môi trường lúc build để Vite bake vào bundle
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 # Câu 56: Build ứng dụng React (tạo ra thư mục dist)
 RUN npm run build
 

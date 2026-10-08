@@ -108,9 +108,7 @@ function App() {
 
         {/* Tiêu đề chính */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-blue-800 tracking-tight">
-            Hệ Thống Quản Lý Sinh Viên
-          </h1>
+          <h1 className="text-4xl font-extrabold text-blue-800 tracking-tight">Hệ Thống Quản Lý Sinh Viên - Version 2.0</h1>
           <p className="mt-3 text-lg text-gray-600">Trường Đại học Công nghệ Cloud-Lab</p>
         </div>
 
